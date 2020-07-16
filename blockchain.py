@@ -43,9 +43,7 @@ class Blockchain:
         """
 
         last_block = chain[0]
-        current_index = 1
-
-        while current_index < len(chain):
+        for current_index in range(1, len(chain)):
             block = chain[current_index]
             print(f'{last_block}')
             print(f'{block}')
@@ -60,8 +58,6 @@ class Blockchain:
                 return False
 
             last_block = block
-            current_index += 1
-
         return True
 
     def resolve_conflicts(self):
@@ -235,7 +231,7 @@ def new_transaction():
 
     # Check that the required fields are in the POST'ed data
     required = ['sender', 'recipient', 'amount']
-    if not all(k in values for k in required):
+    if any(k not in values for k in required):
         return 'Missing values', 400
 
     # Create a new Transaction
